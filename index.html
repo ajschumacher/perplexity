@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<meta charset=utf-8 />
+<title>perplexity</title>
+</head>
+<body>
+  <h1>Human Perplexity Test</h1>
+  <p>There's an English text passage that you can't see. You need to guess the next character, by typing it. Your choices are the letters of the English alphabet (case insensitive) together with the space, comma, and period. That's 29 possibilities for every character. The correct text will appear here:</p>
+  <h2><span id="correct" style="background-color: #99CCFF; font-family: monospace"></span>&nbsp;</h2>
+  <p>What you enter appears here:</p>
+  <h2><span id="entered" style="font-family: monospace;"></span>&nbsp;</h2>
+  <p>If you're on mobile or otherwise don't like typing into the void, you can select this text input box:</p>
+  <input type="text" />
+  <h3>attempted <span id="attempted">0</span> of <span id="passage_length"></span> characters; <span id="num_correct">0</span> correct<span id="incomplete1"> [incomplete]</span></h3>
+  <h3><span id="incomplete2">[so far] </span>you're like a die with <span id="perplexity">[unknown]</span> sides (your <a href="http://en.wikipedia.org/wiki/Perplexity"><i>perplexity</i></a>)</h3>
+
+<script>
+// Yes, it isn't hard to cheat...
+var passage = "They have been waiting for me for some time, since I wired from Switzerland that I had managed to persuade that elderly author of thrillers to entrust to me the beginning of the novel he was unable to continue, assuring him that our computers would be capable of completing it easily, programmed as they are to develop all the elements of a text with perfect fidelity to the stylistic and conceptual models of the author.";
+$('#passage_length').text(passage.length);
+var index = 0;
+var correct = 0;
+var perplexity = undefined;
+$(document).ready(function ($) {
+    $(document).keypress(function (e) {
+        entered = String.fromCharCode(e.which);
+        if ("abcdefghijklmnopqrstuvwxyz ,.".indexOf(entered.toLowerCase()) >= 0
+        	&& index < passage.length) {
+        	if (entered == " ") {
+        		var enteredToDisplay = "&nbsp;";
+        	} else {
+        		var enteredToDisplay = entered;
+        	}
+	    	nextPassageChar = passage.charAt(index);
+	    	if (nextPassageChar == " ") {
+	    		var nextPassageCharToDisplay = "&nbsp;";
+	    	} else {
+	    		var nextPassageCharToDisplay = nextPassageChar;
+	    	}
+	    	$('#correct').append(nextPassageCharToDisplay);
+	    	if (entered.toLowerCase() == nextPassageChar.toLowerCase()) {
+	    		$('#entered').append("<span style='background-color: #99FF66;'>"+
+	    			                 enteredToDisplay+"</span>");
+	    		correct++;
+	    		$('#num_correct').text(correct);
+	    	} else {
+	    		$('#entered').append("<span style='background-color: #800000;'>"+
+	    			                 enteredToDisplay+"</span>");
+	    	}
+	    	index++;
+	    	$('#attempted').text(index)
+	    	if (correct == 0) {
+	    		perplexity = "infinite";
+	    	} else {
+	    		perplexity = Math.round(index * 100 / correct)/100;
+	    	}
+	    	$('#perplexity').text(perplexity);
+	    	if (index == passage.length) {
+	    		$('#incomplete1').text("");
+	    		$('#incomplete2').text("");
+	    	}
+	    	if (index % 40 == 0) {
+	    		$('#correct').append("<br />");
+	    		$('#entered').append("<br />");
+	    	}
+        }
+    });
+});
+$(window).focus();
+</script>
+
+</body>
+</html>
