@@ -1,15 +1,16 @@
-/* this is most of Bostock's css from http://bl.ocks.org/style.css?20120613 */
+/* this is mostly Bostock's css from http://bl.ocks.org/style.css?20120613
+   with some hacks here and there... */
 
 html {
   min-width: 1040px;
 }
 
-body {
+div.contents {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
-  margin: 1em auto 4em auto;
+  margin: 1em auto 4em auto; */
   position: relative;
   tab-size: 2;
-  width: 960px;
+  width: 960px; */
 }
 
 h1 {
