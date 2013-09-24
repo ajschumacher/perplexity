@@ -67,17 +67,9 @@ $(document).ready(function ($) {
         entered = String.fromCharCode(e.which);
         if ("abcdefghijklmnopqrstuvwxyz ,.".indexOf(entered.toLowerCase()) >= 0
         	&& index < passage.length) {
-        	if (entered == " ") {
-        		var enteredToDisplay = "&nbsp;";
-        	} else {
-        		var enteredToDisplay = entered;
-        	}
+        	var enteredToDisplay = space(entered);
 	    	nextPassageChar = passage.charAt(index);
-	    	if (nextPassageChar == " ") {
-	    		var nextPassageCharToDisplay = "&nbsp;";
-	    	} else {
-	    		var nextPassageCharToDisplay = nextPassageChar;
-	    	}
+	    	var nextPassageCharToDisplay = space(nextPassageChar);
 	    	$('#correct').append(nextPassageCharToDisplay);
 	    	if (entered.toLowerCase() == nextPassageChar.toLowerCase()) {
 	    		$('#entered').append("<span style='background-color: #99FF66;'>"+
