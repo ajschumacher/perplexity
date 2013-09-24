@@ -52,13 +52,16 @@ var passages = ["The wheel is come full circle.",
  "Human beings, who are almost unique in having the ability to learn from the experience of others, are also remarkable for their apparent disinclination to do so.",
  "They have been waiting for me for some time, since I wired from Switzerland that I had managed to persuade that elderly author of thrillers to entrust to me the beginning of the novel he was unable to continue, assuring him that our computers would be capable of completing it easily, programmed as they are to develop all the elements of a text with perfect fidelity to the stylistic and conceptual models of the author."];
 var passage = passages[0];
+function space(s) { return(s.replace(" ", "&nbsp;")); }
 $('#passage_length').text(passage.length);
 var index = 0;
 var correct = 0;
 var perplexity = undefined;
 $(document).ready(function ($) {
-	$('#correct').append(passage.charAt(0) + passage.charAt(1));
-	$('#entered').append("&nbsp;&nbsp;");
+	$('#correct').append(space(passage.charAt(0) + passage.charAt(1)));
+	$('#entered').append("<span style='background-color: #AAAAAA;'>" +
+		                 space(passage.charAt(0) + passage.charAt(1)) +
+		                 "</span>");
 	index = 2;
     $(document).keypress(function (e) {
         entered = String.fromCharCode(e.which);
