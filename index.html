@@ -26,12 +26,13 @@
   <p>If you're on mobile or whatever, you can type in here: <input type="text" /><br />(Zoom out again, and don't worry about auto-correct.)</p>
   <h3>attempted <span id="attempted">0</span> of <span id="passage_length"></span> characters; <span id="num_correct">0</span> correct<span id="incomplete1"> [incomplete]</span></h3>
   <h3><span id="incomplete2">[so far] </span>you're like a die with <span id="perplexity">[unknown]</span> sides (your <a href="http://planspace.org/2013/09/23/perplexity-what-it-is-and-what-yours-is/"><i>perplexity</i></a>)</h3>
+  <input type="button" value="new passage" id="new_passage" />
   <p>(Computers can get 3.4, no problem, so you should certainly get lower than that.)
 </div>
 
 <script>
 // Yes, it isn't hard to cheat...
-var passages = ["The wheel is come full circle.",
+var passages = ["The wheel has come full circle.",
  "Learning is a consequence of thinking.",
  "You live and learn. At any rate, you live.",
  "Any fool can know. The point is to understand.",
@@ -51,12 +52,18 @@ var passages = ["The wheel is come full circle.",
  "I expect readers to read in my books something I didn’t know, but I can expect it only from those who expect to read something they didn’t know.",
  "Human beings, who are almost unique in having the ability to learn from the experience of others, are also remarkable for their apparent disinclination to do so.",
  "They have been waiting for me for some time, since I wired from Switzerland that I had managed to persuade that elderly author of thrillers to entrust to me the beginning of the novel he was unable to continue, assuring him that our computers would be capable of completing it easily, programmed as they are to develop all the elements of a text with perfect fidelity to the stylistic and conceptual models of the author."];
-var passage = passages[0];
+var passageNumber = 0;
+var passage = passages[passageNumber];
 function space(s) { return(s.replace(" ", "&nbsp;")); }
-$('#passage_length').text(passage.length);
+$('#passage_length').text(passage.length - 2);
 var index = 0;
 var correct = 0;
 var perplexity = undefined;
+function reset(passageNumber) {
+	index = 0;
+	correct = 0;
+	perplexity = undefined;
+}
 $(document).ready(function ($) {
 	$('#correct').append(space(passage.charAt(0) + passage.charAt(1)));
 	$('#entered').append("<span style='background-color: #AAAAAA;'>" +
@@ -81,11 +88,11 @@ $(document).ready(function ($) {
 	    			                 enteredToDisplay+"</span>");
 	    	}
 	    	index++;
-	    	$('#attempted').text(index)
+	    	$('#attempted').text(index - 2)
 	    	if (correct == 0) {
 	    		perplexity = "infinite";
 	    	} else {
-	    		perplexity = Math.round(index * 100 / correct)/100;
+	    		perplexity = Math.round((index - 2) * 100 / correct)/100;
 	    	}
 	    	$('#perplexity').text(perplexity);
 	    	if (index == passage.length) {
