@@ -62,7 +62,21 @@ var perplexity = undefined;
 function reset(passageNumber) {
 	index = 0;
 	correct = 0;
+	$('#num_correct').text("0");
+	$('#attempted').text("0");
+	$('#perplexity').text("[unknown]");
+	$('#incomplete1').text("[incomplete]");
+	$('#incomplete2').text("[so far]");
+	$('#correct').text("");
+	$('#entered').text("");
+	passage = passages[passageNumber];
+	$('#passage_length').text(passage.length - 2);
 	perplexity = undefined;
+	$('#correct').append(space(passage.charAt(0) + passage.charAt(1)));
+	$('#entered').append("<span style='background-color: #AAAAAA;'>" +
+		                 space(passage.charAt(0) + passage.charAt(1)) +
+		                 "</span>");
+	index = 2;
 }
 $(document).ready(function ($) {
 	$('#correct').append(space(passage.charAt(0) + passage.charAt(1)));
@@ -105,6 +119,10 @@ $(document).ready(function ($) {
 	    	}
         }
     });
+	$('#new_passage').click(function() {
+		passageNumber = (passageNumber + 1) % passages.length;
+		reset(passageNumber);
+	});
 });
 $(window).focus();
 </script>
