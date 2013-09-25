@@ -122,7 +122,7 @@ $(document).ready(function ($) {
 	$('#new_passage').click(function() {
 		passageNumber = (passageNumber + 1) % passages.length;
 		reset(passageNumber);
-		$(window).focus();
+		this.blur();
 	});
 });
 $(window).focus();
