@@ -18,16 +18,20 @@
     </div>
   </div>
 <div class="contents">
-  <h1>Human Perplexity Test</h1>
-  <p>Here's the game: You can only see two characters of the passage at first. You need to guess the next character, by typing it. (Just type it!) Your choices are the letters of the English alphabet (case insensitive) together with the space, comma, and period. That's 29 possibilities for every character. The correct text appears here:</p>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ajschumacher.github.io/perplexity/" data-text="Type text you haven't seen yet!" data-via="planarrowspace" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  <a href="https://twitter.com/intent/tweet?screen_name=planarrowspace" class="twitter-mention-button" data-related="planarrowspace">Tweet to @planarrowspace</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  <a href="https://twitter.com/planarrowspace" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @planarrowspace</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  <h1>Guess the letter!</h1>
+  <p>See how well you can figure out what comes next. It's always a letter of the English alphabet (case insensitive) or a space, a comma, or a period. That's 29 possibilities for every character. Just start typing! The correct text appears here:</p>
   <h2><span id="correct" style="background-color: #99CCFF; font-family: monospace"></span>&nbsp;</h2>
   <p>What you enter will appear here:</p>
   <h2><span id="entered" style="font-family: monospace;"></span>&nbsp;</h2>
-  <p>If you're on mobile or whatever, you can type in here: <input type="text" /><br />(Zoom out again, and don't worry about auto-correct.)</p>
-  <h3>attempted <span id="attempted">0</span> of <span id="passage_length"></span> characters; <span id="num_correct">0</span> correct<span id="incomplete1"> [incomplete]</span></h3>
-  <h3><span id="incomplete2">[so far] </span>you're like a die with <span id="perplexity">[unknown]</span> sides (your <a href="http://planspace.org/2013/09/23/perplexity-what-it-is-and-what-yours-is/"><i>perplexity</i></a>)</h3>
-  <input type="button" value="new passage" id="new_passage" />
-  <p>(Computers can get 3.4, no problem, so you should certainly get lower than that.)
+  <h3><span id="incomplete1">[incomplete]</span> <i>accuracy</i>: <span id="accuracy">[unknown]</span>; <a href="http://planspace.org/2013/09/23/perplexity-what-it-is-and-what-yours-is/"><i>perplexity</i></a>: <span id="perplexity">[unknown]</span></h3>
+  <p>(attempted <span id="attempted">0</span> of <span id="passage_length"></span> characters; <span id="num_correct">0</span> correct) <input type="button" value="next passage" id="new_passage" /> (This is passage <span id="passage_number">1</span> of 20.)</p>
+  <p>No keyboard? Select here: <input type="text" size=1 /> (Then zoom out.)</p>
 </div>
 
 <script>
@@ -60,13 +64,14 @@ var index = 0;
 var correct = 0;
 var perplexity = undefined;
 function reset(passageNumber) {
+	$('#passage_number').text(passageNumber + 1);
 	index = 0;
 	correct = 0;
 	$('#num_correct').text("0");
 	$('#attempted').text("0");
+	$('#accuracy').text("[unknown]");
 	$('#perplexity').text("[unknown]");
 	$('#incomplete1').text("[incomplete]");
-	$('#incomplete2').text("[so far]");
 	$('#correct').text("");
 	$('#entered').text("");
 	passage = passages[passageNumber];
@@ -103,6 +108,7 @@ $(document).ready(function ($) {
 	    	}
 	    	index++;
 	    	$('#attempted').text(index - 2)
+	    	$('#accuracy').text(Math.round(correct * 100 / (index-2)) + "%");
 	    	if (correct == 0) {
 	    		perplexity = "infinite";
 	    	} else {
@@ -111,7 +117,6 @@ $(document).ready(function ($) {
 	    	$('#perplexity').text(perplexity);
 	    	if (index == passage.length) {
 	    		$('#incomplete1').text("");
-	    		$('#incomplete2').text("");
 	    	}
 	    	if (index % 56 == 0) {
 	    		$('#correct').append("<br />");
@@ -126,6 +131,15 @@ $(document).ready(function ($) {
 	});
 });
 $(window).focus();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-44351009-1', 'ajschumacher.github.io');
+  ga('send', 'pageview');
 </script>
 
 </body>
