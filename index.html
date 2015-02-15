@@ -91,7 +91,7 @@ $(document).ready(function ($) {
 	index = 2;
     $(document).keypress(function (e) {
         entered = String.fromCharCode(e.which);
-        if ("abcdefghijklmnopqrstuvwxyz ,.".indexOf(entered.toLowerCase()) >= 0
+        if ("abcdefghijklmnopqrstuvwxyz ,.'".indexOf(entered.toLowerCase()) >= 0
         	&& index < passage.length) {
         	var enteredToDisplay = space(entered);
 	    	nextPassageChar = passage.charAt(index);
